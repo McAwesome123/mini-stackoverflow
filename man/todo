@@ -10,13 +10,13 @@ Fetch (GET) a user profile (by Id)      6 hours       false      Кристия�
 Log-in users                            1 day         false      Кристиян Косев
 -------------------------------------------------------------------------------
 Set up Docker                           2 days        false      Даниел Паунов 
-Set up MariaDB                          1 day         false      Даниел Паунов 
-Design a normalized database scheme     3 days        false      Даниел Паунов 
-Set up the question service             3 day         false      Даниел Паунов 
-Create (POST) a question                6 hours       false      Даниел Паунов 
-Add (POST) an answer                    6 hours       false      Даниел Паунов 
-Close (PUT) a question                  1 day         false      Даниел Паунов 
-Mark (PUT) an answer                    1 day         false      Даниел Паунов           
+Set up MariaDB                          1 day         true?      Даниел Паунов 
+Design a normalized database scheme     3 days        true       Даниел Паунов 
+Set up the question service             3 day         true       Даниел Паунов 
+Create (POST) a question                6 hours       true       Даниел Паунов 
+Add (POST) an answer                    6 hours       true       Даниел Паунов 
+Close (PUT) a question                  1 day         true       Даниел Паунов 
+Mark (PUT) an answer                    1 day         true       Даниел Паунов           
 -------------------------------------------------------------------------------
 Set up Docker                           1 day         false      Ивайло Генчев 
 Set up Kubernetes                       6 days        false      Ивайло Генчев 
