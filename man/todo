@@ -1,16 +1,12 @@
 -------------------------------------------------------------------------------
               Task                    Estimation    Completed     Contributors
 -------------------------------------------------------------------------------
-Set up Docker                           2 days        false      Кристиян Косев
-Set up MariaDB                          2 days        false      Кристиян Косев
 Design a normalized database scheme     3 days        false      Кристиян Косев
 Set up the user service                 3 day         false      Кристиян Косев
 Create (POST) user profiles             6 hours       false      Кристиян Косев
 Fetch (GET) a user profile (by Id)      6 hours       false      Кристиян Косев
 Log-in users                            1 day         false      Кристиян Косев
 -------------------------------------------------------------------------------
-Set up Docker                           2 days        false      Даниел Паунов 
-Set up MariaDB                          1 day         false      Даниел Паунов 
 Design a normalized database scheme     3 days        false      Даниел Паунов 
 Set up the question service             3 day         false      Даниел Паунов 
 Create (POST) a question                6 hours       false      Даниел Паунов 
@@ -18,12 +14,11 @@ Add (POST) an answer                    6 hours       false      Даниел П
 Close (PUT) a question                  1 day         false      Даниел Паунов 
 Mark (PUT) an answer                    1 day         false      Даниел Паунов           
 -------------------------------------------------------------------------------
-Set up Docker                           1 day         false      Ивайло Генчев 
-Set up Kubernetes                       6 days        false      Ивайло Генчев 
+Set up the chat service                 2 days        true       Ивайло Генчев
+Set up Kafka                            5 days        true       Ивайло Генчев
+Set up the notification service         2 days        true       Ивайло Генчев
 Set up Cassandra                        7 days        false      Ивайло Генчев 
 Design the database scheme              2 days        false      Ивайло Генчев 
-Set up the chat service                 2 days        false      Ивайло Генчев
-Handle requests                         3 days        false      Ивайло Генчев
-Set up Kafka                            5 days        false      Ивайло Генчев
-Set up the notification service         2 days        false      Ивайло Генчев
+Set up Kubernetes                       6 days        false      Ивайло Генчев 
+Set up Docker                           1 day         false      Ивайло Генчев 
 -------------------------------------------------------------------------------

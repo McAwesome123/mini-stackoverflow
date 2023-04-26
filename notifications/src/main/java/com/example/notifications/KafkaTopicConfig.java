@@ -23,7 +23,7 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic finalAnswer() {
-        return TopicBuilder.name("final-answer")
+        return TopicBuilder.name("mark-answer")
                 .build();
     }
 }
