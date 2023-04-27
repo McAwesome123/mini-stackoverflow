@@ -17,16 +17,40 @@ import org.springframework.web.bind.annotation.*;
             this.userService = userService;
         }
 
+        @GetMapping("/{id}")
+        public User getUserbyId(@PathVariable Long id) {
+            return userService.getUser(id);
+        }
+
+        @GetMapping("username/{username}")
+        public User getUserbyUsername(@PathVariable String username) {
+            return userService.getUsername(username);
+        }
+
+        @GetMapping("email/{email}")
+        public User getUserbyEmail(@PathVariable String email) {
+            return userService.getEmail(email);
+        }
+
+        @GetMapping("/IsLoggedIn")
+        public String isLoggedIn(HttpSession session) {
+            if(session.getAttribute("userId") == null){
+                return "You are not logged in your account!";
+            }
+
+            return session.getAttribute("userId").toString();
+        }
+
         @PostMapping("/register")
         public ResponseEntity<User> registerUser(@RequestBody User user) {
-            User createdUser = userService.registerUser(user);
+            User newUser = userService.registerUser(user);
 
-            return new ResponseEntity<>(createdUser , HttpStatus.OK);
+            return new ResponseEntity<>(newUser , HttpStatus.OK);
         }
 
         @PostMapping("/login")
         public ResponseEntity<User> loginUser(@RequestBody User user, HttpSession session) {
-            User loginUser = userService.findByUsername(user.getUsername());
+            User loginUser = userService.getUsername(user.getUsername());
             if(loginUser == null){
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -34,6 +58,7 @@ import org.springframework.web.bind.annotation.*;
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
             session.setAttribute("userId", loginUser.getId());
+            session.setAttribute("email",loginUser.getEmail());
             return new ResponseEntity<>(loginUser, HttpStatus.OK);
         }
 
@@ -44,42 +69,6 @@ import org.springframework.web.bind.annotation.*;
             }
             session.invalidate();
             return new ResponseEntity<>(HttpStatus.OK);
-        }
-
-        @DeleteMapping("/{id}/delete")
-        public ResponseEntity<User> deleteUser(@PathVariable Long id, HttpSession session) {
-            if(session.getAttribute("userId") == null){
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-            if(!session.getAttribute("userId").equals(id)){
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-            userService.getUser(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-
-        @GetMapping("/{id}")
-        public User getUserbyId(@PathVariable Long id) {
-            return userService.getUser(id);
-        }
-
-        @GetMapping("username/{username}")
-        public User getUserbyUsername(@PathVariable String username) {
-            return userService.findByUsername(username);
-        }
-
-        @GetMapping("email/{email}")
-        public User getUserbyEmail(@PathVariable String email) {
-            return userService.findByEmail(email);
-        }
-
-        @GetMapping("/IsLoggedIn")
-        public String isLoggedIn(HttpSession session) {
-            if(session.getAttribute("userId") == null){
-                return "Not logged in";
-            }
-
-            return session.getAttribute("userId").toString();
         }
 
     }
