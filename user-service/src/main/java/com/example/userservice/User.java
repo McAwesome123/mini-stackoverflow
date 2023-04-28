@@ -18,11 +18,11 @@ public class User {
 	@Column(unique = true, nullable = false)
 	private String password;
 
-
+	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	public User(String username, String email, String password) {
 		this.username = username;
 		this.email = email;
-		this.password = password;
+		this.password = passwordEncoder.encode(password);
 	}
 
 	public User() {
@@ -57,7 +57,8 @@ public class User {
 		return password;
 	}
 
+
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = passwordEncoder.encode(password);
 	}
 }

@@ -16,24 +16,24 @@ public class UserService {
     }
 
     public User registerUser(User user) {
-        if(userRepository.findByUsername(user.getUsername()) != null){
-            throw new IllegalArgumentException("Username exists");
+        if(userRepository.fetchByUsername(user.getUsername()) != null){
+            throw new IllegalArgumentException("Username exists!");
         }
-        if(userRepository.findByEmail(user.getEmail()) != null){
-            throw new IllegalArgumentException("Email exists");
+        if(userRepository.fetchByEmail(user.getEmail()) != null){
+            throw new IllegalArgumentException("Email exists!");
         }
         return userRepository.save(user);
     }
     public User getUser(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.fetchById(id).orElse(null);
     }
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User fetchByUsername(String username) {
+        return userRepository.fetchByUsername(username);
     }
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public User fetchByEmail(String email) {
+        return userRepository.fetchByEmail(email);
     }
 
 }

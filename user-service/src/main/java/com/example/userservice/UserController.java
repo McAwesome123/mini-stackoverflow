@@ -19,20 +19,45 @@ import org.springframework.web.bind.annotation.*;
             this.userService = userService;
         }
 
+        @GetMapping("/{id}")
+        public User getUserbyId(@PathVariable Long id) {
+            return userService.getUser(id);
+        }
+
+        @GetMapping("username/{username}")
+        public User getUserbyUsername(@PathVariable String username) {
+            return userService.getUsername(username);
+        }
+
+        @GetMapping("email/{email}")
+        public User getUserbyEmail(@PathVariable String email) {
+            return userService.getEmail(email);
+        }
+
+        @GetMapping("/IsLoggedIn")
+        public String isLoggedIn(HttpSession session) {
+            if(session.getAttribute("userId") == null){
+                return "You are not logged in your account!";
+            }
+
+            return session.getAttribute("userId").toString();
+        }
+
         @PostMapping(value="/register", produces=MediaType.APPLICATION_XML_VALUE)
         public ResponseEntity<User> registerUser(@RequestBody User user) {
             try {
-                User createdUser = userService.registerUser(user);
+                User newUser = userService.registerUser(user);
 
                 return new ResponseEntity<>(createdUser , HttpStatus.OK);
             } catch (IllegalArgumentException e) {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
+
         }
 
         @PostMapping(value="/login", produces=MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<User> loginUser(@RequestBody User user, HttpSession session) {
-            User loginUser = userService.findByUsername(user.getUsername());
+            User loginUser = userService.getUsername(user.getUsername());
             if(loginUser == null){
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -40,6 +65,7 @@ import org.springframework.web.bind.annotation.*;
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
             session.setAttribute("userId", loginUser.getId());
+            session.setAttribute("email",loginUser.getEmail());
             return new ResponseEntity<>(loginUser, HttpStatus.OK);
         }
 
@@ -52,28 +78,5 @@ import org.springframework.web.bind.annotation.*;
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
-        @GetMapping("/{id}")
-        public User getUserbyId(@PathVariable Long id) {
-            return userService.getUser(id);
-        }
-
-        @GetMapping("username/{username}")
-        public User getUserbyUsername(@PathVariable String username) {
-            return userService.findByUsername(username);
-        }
-
-        @GetMapping("email/{email}")
-        public User getUserbyEmail(@PathVariable String email) {
-            return userService.findByEmail(email);
-        }
-
-        @GetMapping("/IsLoggedIn")
-        public String isLoggedIn(HttpSession session) {
-            if(session.getAttribute("userId") == null){
-                return "Not logged in";
-            }
-
-            return session.getAttribute("userId").toString();
-        }
 
     }
