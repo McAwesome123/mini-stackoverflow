@@ -3,6 +3,7 @@ package com.example.userservice;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
     @RestController
     @RequestMapping("/users")
     public class UserController {
+        @Autowired
         private final UserService userService;
 
         @Autowired
@@ -17,14 +19,18 @@ import org.springframework.web.bind.annotation.*;
             this.userService = userService;
         }
 
-        @PostMapping("/register")
+        @PostMapping(value="/register", produces=MediaType.APPLICATION_XML_VALUE)
         public ResponseEntity<User> registerUser(@RequestBody User user) {
-            User createdUser = userService.registerUser(user);
+            try {
+                User createdUser = userService.registerUser(user);
 
-            return new ResponseEntity<>(createdUser , HttpStatus.OK);
+                return new ResponseEntity<>(createdUser , HttpStatus.OK);
+            } catch (IllegalArgumentException e) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
         }
 
-        @PostMapping("/login")
+        @PostMapping(value="/login", produces=MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<User> loginUser(@RequestBody User user, HttpSession session) {
             User loginUser = userService.findByUsername(user.getUsername());
             if(loginUser == null){
@@ -43,18 +49,6 @@ import org.springframework.web.bind.annotation.*;
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
             session.invalidate();
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-
-        @DeleteMapping("/{id}/delete")
-        public ResponseEntity<User> deleteUser(@PathVariable Long id, HttpSession session) {
-            if(session.getAttribute("userId") == null){
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-            if(!session.getAttribute("userId").equals(id)){
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-            userService.getUser(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
 

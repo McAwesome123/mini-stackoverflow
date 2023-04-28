@@ -5,7 +5,7 @@ public class Msg {
     private String content;
     private String timestamp;
 
-    public Msg() {
+    public Msg(Long recipientId, String message) {
     }
 
     public String getTimestamp() {

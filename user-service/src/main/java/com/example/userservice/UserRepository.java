@@ -9,4 +9,3 @@ import org.springframework.data.jpa.repository.JpaRepository;
         User findByUsername(String username);
         User findByEmail(String email);
     }
-

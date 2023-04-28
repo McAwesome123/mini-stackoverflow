@@ -17,8 +17,10 @@ Mark (PUT) an answer                    1 day         true       Даниел П
 Set up the chat service                 2 days        true       Ивайло Генчев
 Set up Kafka                            5 days        true       Ивайло Генчев
 Set up the notification service         2 days        true       Ивайло Генчев
-Set up Cassandra                        7 days        false      Ивайло Генчев 
-Design the database scheme              2 days        false      Ивайло Генчев 
+Set up Cassandra                        7 days        true       Ивайло Генчев 
+Design the database scheme              2 days        true       Ивайло Генчев 
 Set up Kubernetes                       6 days        false      Ивайло Генчев 
-Set up Docker                           1 day         false      Ивайло Генчев 
+Set up Docker                           1 day         kinda?     Ивайло Генчев 
 -------------------------------------------------------------------------------
+
+
