@@ -1,0 +1,8 @@
+curl -i \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json" \
+    --cookie-jar ./cookie \
+    -X POST \
+    --data '{"username": "root", "password": "pass", "email": "mail@mail.com"}' "http://localhost:8080/users/login"
+
+echo ""

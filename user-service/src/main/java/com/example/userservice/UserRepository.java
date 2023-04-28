@@ -10,4 +10,3 @@ import org.springframework.data.jpa.repository.JpaRepository;
         User fetchByEmail(String email);
         User fetchById(long id);
     }
-

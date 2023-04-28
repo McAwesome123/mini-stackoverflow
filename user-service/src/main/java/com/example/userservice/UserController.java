@@ -3,6 +3,7 @@ package com.example.userservice;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
     @RestController
     @RequestMapping("/users")
     public class UserController {
+        @Autowired
         private final UserService userService;
 
         @Autowired
@@ -41,14 +43,19 @@ import org.springframework.web.bind.annotation.*;
             return session.getAttribute("userId").toString();
         }
 
-        @PostMapping("/register")
+        @PostMapping(value="/register", produces=MediaType.APPLICATION_XML_VALUE)
         public ResponseEntity<User> registerUser(@RequestBody User user) {
-            User newUser = userService.registerUser(user);
+            try {
+                User newUser = userService.registerUser(user);
 
-            return new ResponseEntity<>(newUser , HttpStatus.OK);
+                return new ResponseEntity<>(createdUser , HttpStatus.OK);
+            } catch (IllegalArgumentException e) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+
         }
 
-        @PostMapping("/login")
+        @PostMapping(value="/login", produces=MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<User> loginUser(@RequestBody User user, HttpSession session) {
             User loginUser = userService.getUsername(user.getUsername());
             if(loginUser == null){
@@ -70,5 +77,6 @@ import org.springframework.web.bind.annotation.*;
             session.invalidate();
             return new ResponseEntity<>(HttpStatus.OK);
         }
+
 
     }
